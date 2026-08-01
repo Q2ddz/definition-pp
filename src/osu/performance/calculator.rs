@@ -17,7 +17,7 @@ use crate::{
 };
 
 // * This is being adjusted to keep the final pp value scaled around what it used to be when changing things.
-pub const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.07;
+pub const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.14;
 
 pub(super) struct OsuPerformanceCalculator<'mods> {
     attrs: OsuDifficultyAttributes,
