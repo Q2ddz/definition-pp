@@ -658,3 +658,4 @@ impl OsuPerformanceCalculator<'_> {
         }
     }
 }
+
