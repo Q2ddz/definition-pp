@@ -17,7 +17,7 @@ use crate::{
 };
 
 // * This is being adjusted to keep the final pp value scaled around what it used to be when changing things.
-pub const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.14;
+pub const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.70;
 
 pub(super) struct OsuPerformanceCalculator<'mods> {
     attrs: OsuDifficultyAttributes,
@@ -108,6 +108,8 @@ impl OsuPerformanceCalculator<'_> {
                 + f64::from(self.state.hitresults.n100) * n100_mult
                 + f64::from(self.state.hitresults.n50) * n50_mult)
                 .min(total_hits);
+
+            multiplier /= 1.97;
         }
 
         let speed_deviation = self.calculate_speed_deviation();
@@ -198,7 +200,7 @@ impl OsuPerformanceCalculator<'_> {
 
         let total_hits = self.total_hits();
 
-        let len_bonus = 0.95
+        let len_bonus = 0.75
             + 0.4 * (total_hits / 2000.0).min(1.0)
             + f64::from(u8::from(total_hits > 2000.0)) * (total_hits / 2000.0).log10() * 0.5;
 
@@ -255,7 +257,7 @@ impl OsuPerformanceCalculator<'_> {
 
         let total_hits = self.total_hits();
 
-        let len_bonus = 0.95
+        let len_bonus = 0.75
             + 0.4 * (total_hits / 2000.0).min(1.0)
             + f64::from(u8::from(total_hits > 2000.0)) * (total_hits / 2000.0).log10() * 0.5;
 
@@ -358,7 +360,7 @@ impl OsuPerformanceCalculator<'_> {
         // * Lots of arbitrary values from testing.
         // * Considering to use derivation from perfect accuracy in a probabilistic manner - assume normal distribution.
         let mut acc_value =
-            1.52163_f64.powf(self.attrs.od()) * better_acc_percentage.powf(24.0) * 2.83;
+            1.52163_f64.powf(self.attrs.od()) * better_acc_percentage.powf(9.0) * 2.83;
 
         // * Bonus for many hitcircles - it's harder to keep good accuracy up for longer.
         acc_value *= (f64::from(amount_hit_objects_with_acc) / 1000.0)
@@ -615,7 +617,7 @@ impl OsuPerformanceCalculator<'_> {
     // * so we use the amount of relatively difficult sections to adjust miss penalty
     // * to make it more punishing on maps with lower amount of hard sections.
     fn calculate_miss_penalty(miss_count: f64, diff_strain_count: f64) -> f64 {
-        0.96 / ((miss_count / (4.0 * diff_strain_count.ln().powf(0.94))) + 1.0)
+        0.96 / ((miss_count / (3.0 * diff_strain_count.ln().powf(0.94))) + 1.0)
     }
 
     fn get_combo_scaling_factor(&self) -> f64 {
