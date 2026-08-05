@@ -109,7 +109,7 @@ impl OsuPerformanceCalculator<'_> {
                 + f64::from(self.state.hitresults.n50) * n50_mult)
                 .min(total_hits);
 
-            multiplier /= 2;
+            multiplier /= 2.0;
         }
 
         let speed_deviation = self.calculate_speed_deviation();
