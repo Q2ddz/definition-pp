@@ -17,7 +17,7 @@ use crate::{
 };
 
 // * This is being adjusted to keep the final pp value scaled around what it used to be when changing things.
-pub const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.24;
+pub const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.28;
 
 pub(super) struct OsuPerformanceCalculator<'mods> {
     attrs: OsuDifficultyAttributes,
@@ -109,7 +109,7 @@ impl OsuPerformanceCalculator<'_> {
                 + f64::from(self.state.hitresults.n50) * n50_mult)
                 .min(total_hits);
 
-            multiplier /= 1.97;
+            multiplier /= 2;
         }
 
         let speed_deviation = self.calculate_speed_deviation();
