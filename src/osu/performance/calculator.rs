@@ -360,7 +360,7 @@ impl OsuPerformanceCalculator<'_> {
         // * Lots of arbitrary values from testing.
         // * Considering to use derivation from perfect accuracy in a probabilistic manner - assume normal distribution.
         let mut acc_value =
-            1.52163_f64.powf(self.attrs.od()) * better_acc_percentage.powf(9) * 2.83;
+            1.52163_f64.powf(self.attrs.od()) * better_acc_percentage.powf(9.0) * 2.83;
 
         // * Bonus for many hitcircles - it's harder to keep good accuracy up for longer.
         acc_value *= (f64::from(amount_hit_objects_with_acc) / 1000.0)
